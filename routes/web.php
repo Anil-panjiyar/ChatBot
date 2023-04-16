@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\BotManController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ForgePasswordController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -18,20 +13,12 @@ use App\Http\Controllers\ForgePasswordController;
 |
 */
 
-
-
-
-
-
-Route::match(['get', 'post'], 'botman', [BotManController::class, 'handle']);
-Route::get('/', function(){
-   return view ('index');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/home',[HomeController::class,'show']);
-Route::post('/home/data',[HomeController::class,'store'])->name('add');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/forget/password',[ForgePasswordController::class,'display'])->name('password');
-Route::post('/forget',[ForgePasswordController::class,'submitForgetPasswordForm'])->name('forget-password');
-
-
+require __DIR__.'/auth.php';
